@@ -15,7 +15,7 @@
 
 		/**
 		*
-		* @param Object $object, the object to parse in a XML structure
+		* @param mixed $object, the object to parse in a XML structure
 		* @return String
 		*
 		*/
@@ -29,8 +29,18 @@
 			$this->domDocument->formatOutput = true;
 
 			$xmlBuilder = new XMLBuilder($this->domDocument);	
-			
-			$root = $xmlBuilder->generateXML($object);
+			$root = null;
+			if(is_array($object)){
+				$rootName = array_keys($object)[0];
+				$root = $this->domDocument->createElement($rootName);
+		
+				$arrayValues = $object[$rootName];
+				foreach($arrayValues as $value){
+					$xmlBuilder->generateXML($value, $root);
+				}
+			}else{
+				$root = $xmlBuilder->generateXML($object);
+			}
 			
 			$this->domDocument->appendChild($root);
 
