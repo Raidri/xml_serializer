@@ -97,11 +97,11 @@
 				else if(is_object($arrayValue)){
 					$this->generateXML($arrayValue, $parentElement);
 				}else{
-					$innerElement = $this->domDocument->createCDATASection($arrayValue);
+					$innerElement = $this->domDocument->createElement(($parentElement->tagName .'_'. $arrayValue));
 					if(is_string($arrayName)){
 						$innerElement = $this->domDocument->createElement($arrayName);
-						$innerElement->appendChild($this->domDocument->createCDATASection($arrayValue));
 					}
+					$innerElement->appendChild($this->domDocument->createCDATASection($arrayValue));
 					$parentElement->appendChild($innerElement);
 				}
 			}

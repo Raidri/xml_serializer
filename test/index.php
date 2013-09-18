@@ -11,6 +11,7 @@ try{
 	$innerClass = new innerClass();
 	$object->innerClasses[] = $innerClass;
 	$object->innerClass = new innerClass();
+	$object->innerClass->XMLClasses = array(1,2,3,4,5);
 	$xmlMapper = new XMLSerializer();
 	$objects["orders"][]  = $object;
 	$objects["orders"][]  = $object;
