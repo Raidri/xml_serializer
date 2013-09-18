@@ -92,12 +92,17 @@
 		private function manageArrayValues($varValue,$parentElement){
 			foreach($varValue as $arrayName => $arrayValue){
 				if(is_array($arrayValue)){
-					$this->manageArrayValues($arrayValue, $parentElement);
+					$this->manageArrayValues($arrayValue, $arrayElement);
 				}
 				else if(is_object($arrayValue)){
 					$this->generateXML($arrayValue, $parentElement);
 				}else{
-					$parentElement->appendChild($this->domDocument->createCDATASection($arrayValue));
+					$innerElement = $this->domDocument->createCDATASection($arrayValue);
+					if(is_string($arrayName)){
+						$innerElement = $this->domDocument->createElement($arrayName);
+						$innerElement->appendChild($this->domDocument->createCDATASection($arrayValue));
+					}
+					$parentElement->appendChild($innerElement);
 				}
 			}
 		}
