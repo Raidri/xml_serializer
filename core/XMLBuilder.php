@@ -90,14 +90,16 @@
 		* if we have an array in our array, lets manage it
 		**/
 		private function manageArrayValues($varValue,$parentElement){
+			$i = 0;
 			foreach($varValue as $arrayName => $arrayValue){
+				$i++;
 				if(is_array($arrayValue)){
-					$this->manageArrayValues($arrayValue, $arrayElement);
+					$this->manageArrayValues($arrayValue, $parentElement);
 				}
 				else if(is_object($arrayValue)){
 					$this->generateXML($arrayValue, $parentElement);
 				}else{
-					$innerElement = $this->domDocument->createElement(($parentElement->tagName .'_'. $arrayValue));
+					$innerElement = $this->domDocument->createElement(($parentElement->tagName .'_'. $i));
 					if(is_string($arrayName)){
 						$innerElement = $this->domDocument->createElement($arrayName);
 					}
