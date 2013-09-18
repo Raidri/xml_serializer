@@ -7,7 +7,7 @@ XML Serializer
 
 ###Introduction
 
-The xml serializer takes an object or an array of objects and parsed it in a well formed xml structure.
+The xml serializer takes an object or an array of objects and parse it in a well formed xml structure.
 If you need attributes you can define it with php annotations like @xmlattributes[key => value]
 
 ###Example
