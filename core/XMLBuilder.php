@@ -91,7 +91,10 @@
 		**/
 		private function manageArrayValues($varValue,$parentElement){
 			foreach($varValue as $arrayName => $arrayValue){
-				if(is_object($arrayValue)){
+				if(is_array($arrayValue)){
+					$this->manageArrayValues($arrayValue, $parentElement);
+				}
+				else if(is_object($arrayValue)){
 					$this->generateXML($arrayValue, $parentElement);
 				}else{
 					$parentElement->appendChild($this->domDocument->createCDATASection($arrayValue));
@@ -107,15 +110,17 @@
 
 			$attributes = $property->getDocComment();
 			$attributes = $this->filterAttributeInformation($attributes);
-			
-			foreach($attributes as $name => $value){
-				$attribute = $this->domDocument->createAttribute($name);
 
-				if(isset($value)){
-					$attribute->value = $value;
+			if($attributes != null){
+				foreach($attributes as $name => $value){
+					$attribute = $this->domDocument->createAttribute($name);
+
+					if(isset($value)){
+						$attribute->value = $value;
+					}
+
+					$element->appendChild($attribute);
 				}
-
-				$element->appendChild($attribute);
 			}
 		
 		}

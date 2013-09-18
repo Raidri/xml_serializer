@@ -4,6 +4,7 @@ try{
 	require_once (dirname(__FILE__).'/../XMLSerializer.php');
 	require_once (dirname(__FILE__).'/object.php');
 	require_once (dirname(__FILE__).'/innerObject.php');
+	
 	$objects = array();
 	$object = new XMLClass();
 	$object->innerClasses = array();
